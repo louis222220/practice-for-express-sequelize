@@ -2,5 +2,20 @@
   "name": "practice-for-express-sequelize",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "migrate:status": "sequelize-cli db:migrate:status",
+    "migrate": "sequelize-cli db:migrate"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
+  }
+
 }
