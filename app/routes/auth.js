@@ -34,6 +34,7 @@ router.post('/signup', async (req, res) => {
 		username: req.body.username,
 		password: await db.User.hashPassword(req.body.password),
 	});
+	await newUser.reload();
 
 	return res.json(newUser);
 });

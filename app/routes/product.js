@@ -52,7 +52,7 @@ router.post('', Passport.authenticate('jwt', { session: false }), async (req, re
 		req?.body?.name &&
 		req?.body?.price &&
 		Number.isInteger(parseInt(req.body.price)) &&
-		parseInt(req.body.price) > 0
+		parseInt(req.body.price) >= 0
 	)) {
 		return res.status(422).json({ message: 'Invalid input' });
 	}
@@ -81,7 +81,7 @@ router.put('/:id', Passport.authenticate('jwt', { session: false }), async (req,
 	if (
 		req?.body?.price &&
 		Number.isInteger(parseInt(req.body.price)) &&
-		parseInt(req.body.price) > 0
+		parseInt(req.body.price) >= 0
 	) {
 		product.price = req.body.price;
 	}
