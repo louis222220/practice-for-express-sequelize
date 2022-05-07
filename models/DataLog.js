@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
      * @param Model instance  the instance to be updated before saved
      * @param int   userId   the id of the user updating the data
      */
-    static async writeLog(instance, userId) {
+    static async writeUpdateLog(instance, userId) {
+      userId = parseInt(userId);
       if (!(
         instance instanceof Model &&
         instance.changed() &&
@@ -31,13 +32,42 @@ module.exports = (sequelize, DataTypes) => {
           prev_data: JSON.stringify(instance.previous()),
           curr_data: JSON.stringify(instance.get()),
         });
-        console.log(newDataLog.toJSON());
         await newDataLog.save();
       } catch (error) {
         // Ignore error when write data log
-        console.log(`writeLog error: `, error.message);
+        console.log(`writeUpdateLog error: `, error.message);
       }
     }
+
+    /**
+     * Write the record of data change.
+     * @param Model instance  the instance to be updated before saved
+     * @param int   userId   the id of the user updating the data
+     */
+    static async writeDeleteLog(instance, userId) {
+      userId = parseInt(userId);
+      if (!(
+        instance instanceof Model &&
+        Number.isInteger(userId) &&
+        userId > 0
+      )) {
+        return;
+      }
+
+      try {
+        const newDataLog = this.build({
+          user_id: userId,
+          data_table_name: instance.constructor.getTableName(),
+          prev_data: JSON.stringify(instance.get()),
+          curr_data: "DELETED",
+        });
+        await newDataLog.save();
+      } catch (error) {
+        // Ignore error when write data log
+        console.log(`writeDeleteLog error: `, error.message);
+      }
+    }
+
   }
 
   DataLog.init({
