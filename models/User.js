@@ -13,7 +13,17 @@ module.exports = (sequelize, DataTypes) => {
       return await bcrypt.hash(password, 10);
     }
     async isValidPassword(password) {
-      return await bcrypt.compare(password, this.password);
+      let hash = '';
+      if (this.password) {
+        hash = this.password
+      }
+      else {
+        const user = await this.constructor.unscoped().findByPk(this.id);
+        hash = user.password;
+      }
+
+      if (!hash) return false;
+      return await bcrypt.compare(password, hash);
     }
   }
 
@@ -24,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     underscored: true,
+    defaultScope: {
+      attributes: {
+        exclude: ['password'],
+      },
+    },
   });
   return User;
 };
