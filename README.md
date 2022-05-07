@@ -16,6 +16,8 @@ ttn 編輯了名稱，從 A 改成 B
 Louis 編輯了價錢，從 10 改成 0
 ```
 
+---
+
 ## 設計
 
 ### 編輯記錄
@@ -48,6 +50,22 @@ Sequelize-cli 會根據 config/database.js 的設定、及 migrations/ 的資料
 
 作為程式入口的 app.js 建立 Express 的主物件，並引入定義在 app/routes 的各個 API，Models 則定義了 ORM 在取資料時的行為及資料表關聯。
 
+## 啟動方式
+
+### Installation
+```bash
+yarn install
+```
+
+### Migration
+```bash
+yarn migrate
+```
+
+### Server
+```bash
+node app.js
+```
 
 ## DB Schema
 
@@ -240,5 +258,32 @@ Sequelize-cli 會根據 config/database.js 的設定、及 migrations/ 的資料
 		"deletedAt": "2022-05-07T12:45:22.893Z"
 	}
 	```
+
+---
+
+### Postman 截圖
+
+- 註冊
+<img width="865" alt="1-1  signup" src="https://user-images.githubusercontent.com/11331916/167259170-7ccaac1a-5bd3-48a3-9f94-076e9cd4f7de.png">
+- 登入
+<img width="870" alt="1-2  login" src="https://user-images.githubusercontent.com/11331916/167259172-06fc02e8-a139-405c-a923-d02a220fd021.png">
+- Token 測試
+<img width="975" alt="1-3  me" src="https://user-images.githubusercontent.com/11331916/167259173-f3d328cd-5ec0-4810-8685-e07364fcc2ee.png">
+
+- 建立商品
+<img width="869" alt="2-1  Create" src="https://user-images.githubusercontent.com/11331916/167259174-89600f47-8500-4a39-b920-5e8755a00c35.png">
+- 商品列表
+<img width="925" alt="2-2 List" src="https://user-images.githubusercontent.com/11331916/167259176-22e86d3f-3c43-4a9c-97fe-8497887df1d7.png">
+- 商品細節
+<img width="870" alt="2-3 Show" src="https://user-images.githubusercontent.com/11331916/167259177-6d8f5809-c315-4a49-b2f5-cea374a247d7.png">
+- 更新商品
+<img width="872" alt="2-4  Update" src="https://user-images.githubusercontent.com/11331916/167259178-d3ec9bfc-fef1-4b4d-95b2-0ea7e45781dc.png">
+- 刪除商品
+<img width="870" alt="2-5 Delete" src="https://user-images.githubusercontent.com/11331916/167259179-dd4a4420-5f78-4436-bd36-ad834c8ce2f3.png">
+
+- 編輯紀錄
+<img width="440" alt="3-1  DataLog Updated" src="https://user-images.githubusercontent.com/11331916/167259180-937df7fa-1114-4f1e-a666-12c72d2eff0b.png">
+- 刪除紀錄
+<img width="443" alt="3-2 DataLog Deleted" src="https://user-images.githubusercontent.com/11331916/167259181-845aa1f8-2694-4edc-829a-f0637655229f.png">
 
 
