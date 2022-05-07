@@ -26,6 +26,7 @@ router.get('', Passport.authenticate('jwt', { session: false }), async (req, res
 	const products = await db.Product.findAndCountAll({
 		limit,
 		offset,
+		attributes: ['id', 'name', 'price'],
 	});
 	return res.json(products);
 });
